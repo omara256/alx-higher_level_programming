@@ -1,6 +1,7 @@
 #!/usr/bin/python3
-for i in range(0, 100):
-    if i is not 89 and i / 10 < i % 10:
-        print("{:02d}".format(i), end=", ")
-    elif i is 89:
-        print("{:02d}".format(i))
+for digit1 in range(0, 9):
+    for digit2 in range(digit1 + 1, 10):
+        if digit1 == 8:
+            print("{:d}{:d}".format(digit1, digit2))
+            break
+        print("{:d}{:d}".format(digit1, digit2), end=", ")
