@@ -1,15 +1,21 @@
 #!/usr/bin/python3
-"""0-select_states module
-Lists all states from the database hbtn_0e_0_usa
-"""
+# List all states from a given db sorted in ascending order by id
+# Username, password, and database names are given as user args
+import sys
+import MySQLdb
 
 if __name__ == "__main__":
-    import MySQLdb
-    from sys import argv
+    db = MySQLdb.connect(user=sys.argv[1],
+                         passwd=sys.argv[2],
+                         db=sys.argv[3],
+                         host='localhost',
+                         port=3306)
+    cur = db.cursor()
+    cur.execute("SELECT id, name FROM states ORDER BY id ASC")
+    allStates = cur.fetchall()
 
-    with MySQLdb.connect(host="localhost", user=argv[1], passwd=argv[2],
-                         db=argv[3], port=3306) as db:
-        db.execute("SELECT * FROM states ORDER BY id ASC")
-        table = db.fetchall()
-        for data in table:
-            print(data)
+    for state in allStates:
+        print(state)
+
+    cur.close()
+    db.close()
